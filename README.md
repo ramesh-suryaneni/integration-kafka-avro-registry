@@ -27,48 +27,56 @@ This project demonstrates integration of Apache Kafka as the message broker alon
 
 3. **Build and Run**
     
-    - Run docker containers: From root dir run the following to start dockerised    Kafka, Zookeeper, Schema Registry, and Control Center
+    - **Run docker containers:** From root dir run the following to start dockerised    Kafka, Zookeeper, Schema Registry, and Control Center
 
         ```docker-compose up -d```
     
-    - Start demo spring boot application: 
+    - **Start demo spring boot application:**
         ```cd schema-registry-demo-service/
         ./mvnw spring-boot:run
         ```
     
-    - Register schemas:
+    - **Register schemas:**
+
         ```mvn schema-registry:register```
     
-    - Schema Registry API curl
+    - **Schema Registry API curl**
+
         List subjects:
         ```curl -X GET http://localhost:8081/subjects```
     
         Get registered schemas for given Ids:
         ```curl -X GET http://localhost:8081/schemas/ids/1```
 
-    - Produce event to Kafka using curl (Windows Command Prompt):
+    - **Produce event to Kafka using curl (Windows Command Prompt):**
+
         ```cmd
         curl -X POST http://localhost:8080/v1/api/send 
         -H "Content-Type: application/json" 
         -d "{\"id\": \"12345\", \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}"
         ```
-        Output:
+        **Output:**
         ```Message sent to Kafka topic: user-topic with key: 12345 and value: {"id": "12345", "name": "John Doe", "email": "john.doe@example.com"}
         Consumed message: {"id": "12345", "name": "John Doe", "email": "john.doe@example.com"}
         ```
 
 ## Usage
 
-    The application will produce and consume Avro-encoded messages to/from Kafka topics.
-    Avro schemas are managed via Schema Registry.
+The application will produce and consume Avro-encoded messages to/from Kafka topics.
+Avro schemas are managed via Schema Registry.
 
-    - Kafka Confluent Control Center: Confluent Control Center is a UI over the Kafka cluster, providing configuration, data and information on the brokers, topics and messages. It integrates with Schema Registry, enabling viewing of schemas.
+- **Kafka Confluent Control Center:**
+    
+    Confluent Control Center is a UI over the Kafka cluster, providing configuration, data and information on the brokers, topics and messages. It integrates with Schema Registry, enabling viewing of schemas.
 
-    - Navigate to the Control Center:
+- **Navigate to the Control Center:**
+
     ```http://localhost:9021```
 
-    - Avro 
+- **Avro**
+
     Generate the source code for the events using the Avro schema: (optional - this happens as part of the `install`)
+    
     ```mvn clean generate-sources```
 
 ## Docker clean up
