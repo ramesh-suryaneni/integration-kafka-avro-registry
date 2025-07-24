@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.rams.integration.avro.kafka.registry</groupId>
+	<artifactId>integration-kafka-avro-registry</artifactId>
+	<version>0.0.1</version>
+	<name>integration-kafka-avro-registry</name>
+	<description>Demo project for Spring Boot</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+		<confluent.version>7.5.3</confluent.version>
+	</properties>
+	<dependencies>
+		<!-- Spring Boot starter web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Kafka -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+	    </dependency>
+
+		<!-- Confluent Schema Registry -->
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-avro-serializer</artifactId>
+			<version>${confluent.version}</version>
+		</dependency>
+		
+		<!-- apache avro -->
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>1.11.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro-compiler</artifactId>
+			<version>1.11.3</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Spring Boot testing -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+    		<groupId>org.springframework.kafka</groupId>
+    		<artifactId>spring-kafka-test</artifactId>
+    		<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<!-- Repositories for Confluent -->
+	<repositories>
+    	<repository>
+        	<id>confluent</id>
+        	<name>Confluent Maven Repository</name>
+        	<url>https://packages.confluent.io/maven/</url>
+    	</repository>
+	</repositories>
+
+	<pluginRepositories>
+    	<pluginRepository> 
+        	<id>confluent</id> 
+        	<name>Confluent</name> 
+        	<url>https://packages.confluent.io/maven/</url> 
+    	</pluginRepository> 
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+			
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Maven Compiler Plugin to generate avro models -->
+			<plugin>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro-maven-plugin</artifactId>
+				<version>1.11.3</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>schema</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+							<outputDirectory>${project.build.directory}/generated/avro</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Confluent Plugin for Registering schemas with Schema Registry  -->
+			<plugin>
+				<groupId>io.confluent</groupId>
+				<artifactId>kafka-schema-registry-maven-plugin</artifactId>
+				<version>${confluent.version}</version>
+				<configuration>
+					<schemaRegistryUrls>http://localhost:8081</schemaRegistryUrls>
+					<subjects>
+						<subject>
+                        	<name>user-topic</name>
+                        	<schemaPath>${project.basedir}/src/main/resources/avro/user.avsc</schemaPath>
+                    	</subject>
+					</subjects>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
