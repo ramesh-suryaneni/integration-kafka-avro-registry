@@ -27,8 +27,9 @@ This project demonstrates integration of Apache Kafka as the message broker alon
 
 3. **Build and Run**
     
-    **Run docker containers**
+    - Run docker containers
         From root dir run the following to start dockerised Kafka, Zookeeper, Schema Registry, and Control Center
+        
         ```docker-compose up -d```
     
     **Start demo spring boot application**
