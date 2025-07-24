@@ -29,7 +29,7 @@ This project demonstrates integration of Apache Kafka as the message broker alon
     
     **Run docker containers**
         From root dir run the following to start dockerised Kafka, Zookeeper, Schema Registry, and Control Center
-        `docker-compose up -d`
+        ```docker-compose up -d```
     
     **Start demo spring boot application**
         ```cd schema-registry-demo-service/
@@ -37,14 +37,14 @@ This project demonstrates integration of Apache Kafka as the message broker alon
         ```
     
     **Register schemas**
-        `mvn schema-registry:register`
+        ```mvn schema-registry:register```
     
     **Schema Registry API curl**
         List subjects:
-        `curl -X GET http://localhost:8081/subjects`
+        ```curl -X GET http://localhost:8081/subjects```
     
         Get registered schemas for given Ids:
-        `curl -X GET http://localhost:8081/schemas/ids/1`
+        ```curl -X GET http://localhost:8081/schemas/ids/1```
 
     **Produce event to Kafka using curl (Windows Command Prompt):**
         ```cmd
@@ -66,7 +66,7 @@ This project demonstrates integration of Apache Kafka as the message broker alon
     Confluent Control Center is a UI over the Kafka cluster, providing configuration, data and information on the brokers, topics and messages. It integrates with Schema Registry, enabling viewing of schemas.
 
     Navigate to the Control Center:
-    `http://localhost:9021`
+    ```http://localhost:9021```
 
     **Avro**
     Generate the source code for the events using the Avro schema: (optional - this happens as part of the `install`)
