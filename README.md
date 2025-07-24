@@ -59,8 +59,8 @@ This project demonstrates integration of Apache Kafka as the message broker alon
 
 ## Usage
 
-    - The application will produce and consume Avro-encoded messages to/from Kafka topics.
-    - Avro schemas are managed via Schema Registry.
+    The application will produce and consume Avro-encoded messages to/from Kafka topics.
+    Avro schemas are managed via Schema Registry.
 
     - Kafka Confluent Control Center: Confluent Control Center is a UI over the Kafka cluster, providing configuration, data and information on the brokers, topics and messages. It integrates with Schema Registry, enabling viewing of schemas.
 
