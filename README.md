@@ -48,8 +48,8 @@ This project demonstrates integration of Apache Kafka as the message broker alon
 
     - Produce event to Kafka using curl (Windows Command Prompt):
         ```cmd
-        curl -X POST http://localhost:8080/v1/api/send ^
-        -H "Content-Type: application/json" ^
+        curl -X POST http://localhost:8080/v1/api/send 
+        -H "Content-Type: application/json" 
         -d "{\"id\": \"12345\", \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}"
         ```
         Output:
@@ -67,7 +67,7 @@ This project demonstrates integration of Apache Kafka as the message broker alon
     - Navigate to the Control Center:
     ```http://localhost:9021```
 
-    - Avro -
+    - Avro 
     Generate the source code for the events using the Avro schema: (optional - this happens as part of the `install`)
     ```mvn clean generate-sources```
 
